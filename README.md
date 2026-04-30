@@ -1,2 +1,156 @@
-# ustakornisci
-Batmanda ustaca ve titizlik ile taktığımız kornişler ile adeta bir numarayız.
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usta Kornişçi | Batman Profesyonel Montaj</title>
+    <style>
+        /* Tasarım Ayarları */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; line-height: 1.6; }
+        
+        header { 
+            background: linear-gradient(135deg, #2c3e50, #2980b9); 
+            color: white; 
+            padding: 50px 20px; 
+            text-align: center; 
+            border-bottom: 5px solid #e67e22; 
+        }
+        header h1 { font-size: 2.8rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        header p { margin-top: 10px; font-size: 1.2rem; opacity: 0.9; }
+
+        .container { max-width: 1000px; margin: auto; padding: 20px; }
+
+        /* Hizmet Kartları */
+        .services { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: -30px; }
+        .card { 
+            background: white; 
+            padding: 30px; 
+            width: 300px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card h3 { color: #2980b9; margin-bottom: 15px; }
+
+        /* Hesaplama Aracı */
+        #calc-section {
+            background: white;
+            padding: 40px;
+            margin: 40px 0;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px solid #e67e22;
+        }
+        input {
+            padding: 15px;
+            width: 150px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            font-size: 1.2rem;
+            margin: 20px 0;
+            outline: none;
+        }
+        input:focus { border-color: #2980b9; }
+        #result { font-size: 1.5rem; font-weight: bold; color: #27ae60; margin: 20px 0; }
+
+        /* WhatsApp Butonu */
+        .btn-whatsapp { 
+            display: inline-block; 
+            background: #25d366; 
+            color: white; 
+            padding: 20px 40px; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            font-size: 1.2rem;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+        }
+        .btn-whatsapp:hover { background: #128c7e; transform: scale(1.05); }
+
+        footer { text-align: center; padding: 40px; background: #2c3e50; color: white; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>USTA KORNİŞÇİ</h1>
+    <p id="greeting">Hoş Geldiniz...</p>
+</header>
+
+<div class="container">
+    <div class="services">
+        <div class="card">
+            <h3>Sağlam Montaj</h3>
+            <p>Batman evlerine özel, sarsılmaz korniş kurulumu.</p>
+        </div>
+        <div class="card">
+            <h3>Hızlı Teslim</h3>
+            <p>Aynı gün içinde ölçü ve montaj imkanı.</p>
+        </div>
+        <div class="card">
+            <h3>Uygun Fiyat</h3>
+            <p>Metresi sadece 180 TL'den başlayan fiyatlarla.</p>
+        </div>
+    </div>
+
+    <div id="calc-section">
+        <h2>Anında Fiyat Hesapla</h2>
+        <p>Tahmini ölçüyü girin (Metre):</p>
+        <input type="number" id="meter" placeholder="Örn: 10" oninput="calculate()">
+        <div id="result">Lütfen miktar girin...</div>
+        
+        <a href="https://api.whatsapp.com/send?phone=905538280208&text=Merhaba%20Usta,%20korniş%20taktırmak%20istiyorum." 
+           class="btn-whatsapp" id="contact-link" target="_blank">
+            WhatsApp'tan Ulaş
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Usta Kornişçi - Batman</p>
+    <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.6;">Developer: Sero</p>
+</footer>
+
+<script>
+    // 1. Dinamik Selamlama
+    function updateGreeting() {
+        const hour = new Date().getHours();
+        const greet = document.getElementById('greeting');
+        
+        if (hour >= 5 && hour < 12) greet.innerText = "Hayırlı Sabahlar, Batman'ın En İyi Ustası Burada!";
+        else if (hour >= 12 && hour < 18) greet.innerText = "İyi Günler, Kornişleriniz Emin Ellerde!";
+        else greet.innerText = "İyi Akşamlar, Yarın İçin Randevu Alabilirsiniz!";
+    }
+
+    // 2. 180 TL Üzerinden Hesaplama ve Link Güncelleme
+    function calculate() {
+        const m = document.getElementById('meter').value;
+        const res = document.getElementById('result');
+        const link = document.getElementById('contact-link');
+        const pricePerMeter = 180;
+        const phone = "905538280208";
+        
+        if (m > 0) {
+            const total = m * pricePerMeter;
+            res.innerHTML = "Tahmini Tutar: <span style='color:#e67e22'>" + total + " TL</span>";
+            
+            // Mesajı güvenli şekilde oluşturuyoruz
+            const msg = `Merhaba Usta, sitemizden hesapladım. ${m} metre korniş montajı için fiyat almak istiyorum.`;
+            link.href = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
+        } else {
+            res.innerText = "Lütfen miktar girin...";
+            link.href = `https://api.whatsapp.com/send?phone=${phone}&text=Merhaba%20Usta`;
+        }
+    }
+
+    // İlk açılışta selamlama çalışsın
+    updateGreeting();
+</script>
+
+</body>
+</html>
